@@ -1,0 +1,1 @@
+{"version":3,"file":"main.js","mappings":"yBAEAA,SAASC,cAAc,MAAMC,UADZ,+B","sources":["webpack://webpacktemplate/./src/index.js"],"sourcesContent":["import \"./style.scss\";\r\nconst headline = \"Welcome to the page of webbb\";\r\ndocument.querySelector('h1').innerText = headline;"],"names":["document","querySelector","innerText"],"sourceRoot":""}
