@@ -1,11 +1,23 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const zlib = require("zlib");
 const CompressionPlugin = require("compression-webpack-plugin");
 
 module.exports = {
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    compress: true,
+    port: 9000,
+  },
     mode:"development",
     plugins: [
+        new HtmlWebpackPlugin({
+          title: 'Caching',
+        }),
         new MiniCssExtractPlugin(),
         new CompressionPlugin({
         filename: "[path][base].br",
@@ -23,6 +35,10 @@ module.exports = {
     module: {
         
         rules: [
+          {
+            test: /\.(jpe?g|png)$/i,
+            type: "asset",
+          },
             {
                 test: /\.scss$/i,
                 use: [MiniCssExtractPlugin.loader,
@@ -48,8 +64,43 @@ module.exports = {
         main: './src/index.js', 
       },
     output: {
-        filename: '[name].js',
+        filename: '[name].[contenthash].js',
         path: __dirname + '/dist',
+    },
+    optimization: {
+      minimizer: [
+      "...",
+      new ImageMinimizerPlugin({
+        minimizer: {
+          implementation: ImageMinimizerPlugin.squooshMinify,
+          options: {
+            encodeOptions: {
+              mozjpeg: {
+                quality: 100,
+              },
+              webp: {
+                lossless: 1,
+              },
+              avif: {
+                cqLevel: 0,
+              },
+            },
+          },
+        },
+      }),
+    ],
+      moduleIds: 'deterministic',
+      runtimeChunk: 'single',
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: 'vendors',
+            chunks: 'all',
+          },
+        },
+      },
     },
     devtool: "source-map",
 };
+

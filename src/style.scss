@@ -1,8 +1,9 @@
+@import "header.scss";
 $red-text: red;
 $back-color: green;
 
 body {
-    background-color: $back-color;
+    background-image: url("img/pic.jpg");
     color:  red;
     font-weight: bolder;
 }
