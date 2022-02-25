@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+//const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 const zlib = require("zlib");
 const CompressionPlugin = require("compression-webpack-plugin");
 
@@ -22,7 +22,7 @@ module.exports = {
         new CompressionPlugin({
         filename: "[path][base].br",
         algorithm: "brotliCompress",
-        test: /\.(js|css|html|svg)$/,
+        test: /\.(js|css|html|svg|jpg)$/,
         compressionOptions: {
           params: {
             [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
@@ -68,27 +68,27 @@ module.exports = {
         path: __dirname + '/dist',
     },
     optimization: {
-      minimizer: [
-      "...",
-      new ImageMinimizerPlugin({
-        minimizer: {
-          implementation: ImageMinimizerPlugin.squooshMinify,
-          options: {
-            encodeOptions: {
-              mozjpeg: {
-                quality: 100,
-              },
-              webp: {
-                lossless: 1,
-              },
-              avif: {
-                cqLevel: 0,
-              },
-            },
-          },
-        },
-      }),
-    ],
+    //   minimizer: [
+    //   "...",
+    //   new ImageMinimizerPlugin({
+    //     minimizer: {
+    //       implementation: ImageMinimizerPlugin.squooshMinify,
+    //       options: {
+    //         encodeOptions: {
+    //           mozjpeg: {
+    //             quality: 100,
+    //           },
+    //           webp: {
+    //             lossless: 1,
+    //           },
+    //           avif: {
+    //             cqLevel: 0,
+    //           },
+    //         },
+    //       },
+    //     },
+    //   }),
+    // ],
       moduleIds: 'deterministic',
       runtimeChunk: 'single',
       splitChunks: {
