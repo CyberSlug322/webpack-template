@@ -1,9 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-//const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+//const ESLintPlugin = require('eslint-webpack-plugin');
 const zlib = require("zlib");
 const CompressionPlugin = require("compression-webpack-plugin");
+const isDev = true;
+
+
 
 module.exports = {
   devServer: {
@@ -15,9 +19,12 @@ module.exports = {
   },
     mode:"development",
     plugins: [
+        // new ESLintPlugin(),
         new HtmlWebpackPlugin({
           title: 'Caching',
+          template:'./src/index.html'
         }),
+        new CleanWebpackPlugin(),
         new MiniCssExtractPlugin(),
         new CompressionPlugin({
         filename: "[path][base].br",
@@ -35,60 +42,36 @@ module.exports = {
     module: {
         
         rules: [
-          {
-            test: /\.(jpe?g|png)$/i,
-            type: "asset",
-          },
             {
                 test: /\.scss$/i,
                 use: [MiniCssExtractPlugin.loader,
                     "css-loader",
                     "sass-loader",
-                    "postcss-loader",]
+                    ]
             },
             {
                 test:/\.(png|svg|jpg|jpeg|gif)$/i,
                 type: 'asset/resource',
             },
             {
-              test: /\.js$/,
+              test: /\.jsx$/,
               exclude: /(node_modules)/,
               use: {
                 loader: 'babel-loader',
               }
+              
             },
         ]
     },
     mode: 'production',
     entry: {
-        main: './src/index.js', 
+        main: ['@babel/polyfill','./src/index.jsx'], 
       },
     output: {
         filename: '[name].[contenthash].js',
         path: __dirname + '/dist',
     },
     optimization: {
-    //   minimizer: [
-    //   "...",
-    //   new ImageMinimizerPlugin({
-    //     minimizer: {
-    //       implementation: ImageMinimizerPlugin.squooshMinify,
-    //       options: {
-    //         encodeOptions: {
-    //           mozjpeg: {
-    //             quality: 100,
-    //           },
-    //           webp: {
-    //             lossless: 1,
-    //           },
-    //           avif: {
-    //             cqLevel: 0,
-    //           },
-    //         },
-    //       },
-    //     },
-    //   }),
-    // ],
       moduleIds: 'deterministic',
       runtimeChunk: 'single',
       splitChunks: {

@@ -14,11 +14,17 @@
   "devDependencies": {
     "@babel/cli": "^7.17.6",
     "@babel/core": "^7.17.5",
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
     "@squoosh/lib": "^0.4.0",
     "babel-cli": "^6.26.0",
     "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.6.0",
+    "eslint": "^8.9.0",
+    "eslint-webpack-plugin": "^3.1.1",
     "html-webpack-plugin": "^5.5.0",
     "image-minimizer-webpack-plugin": "^3.2.3",
     "imagemin": "^8.0.1",
@@ -36,6 +42,8 @@
   },
   "dependencies": {
     "compression-webpack-plugin": "^9.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "zlib": "^1.0.5"
   }
 }
