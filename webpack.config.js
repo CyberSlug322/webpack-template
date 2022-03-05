@@ -5,7 +5,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 //const ESLintPlugin = require('eslint-webpack-plugin');
 const zlib = require("zlib");
 const CompressionPlugin = require("compression-webpack-plugin");
-const isDev = true;
+
 
 
 
@@ -16,6 +16,9 @@ module.exports = {
     },
     compress: true,
     port: 9000,
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
   },
     mode:"development",
     plugins: [

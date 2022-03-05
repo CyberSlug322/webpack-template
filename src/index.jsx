@@ -1,13 +1,14 @@
 import "./style.scss"
-import "./app.jsx"
+import App from "./App.jsx"
+
 import React from 'react'
 import {render} from 'react-dom'
+import {Provider} from 'react-redux'
+import {store} from './reducers/index'
 
 render (
-    <App/>,
+    <Provider store={store}>
+        <App/>
+    </Provider>,
     document.getElementById('root')
 )
-const headline = "Welcome to the page of webbb";
-document.querySelector('body').innerText = headline;
-const a = (abc) => abc;
-console.log(a + 'a');

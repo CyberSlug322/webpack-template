@@ -1,9 +1,23 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { setCount } from './reducers/repoReducer'
+import Timer from './timer'
 
-const App = () => {
+const App = (props) => {
+    const dispatch = useDispatch()
+
+    const onCountClick = () => {
+        dispatch(setCount(5))
+    }
+    const a = 'abc'
     return (
         <div>
-            Some text111
+            <button onClick={()=>onCountClick()}>counter</button>
+            
+            <Timer>
+            {(a) => <span>{a}</span>}
+            </Timer>
+            
         </div>
     )
 }
