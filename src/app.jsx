@@ -3,19 +3,25 @@ import { useDispatch } from 'react-redux'
 import { setCount } from './reducers/repoReducer'
 import Timer from './timer'
 
-const App = (props) => {
+const App = () => {
     const dispatch = useDispatch()
-
+    const settings = {secondsPerClick: 6, isActive: true}
+    const onTimerCompleted = () => {
+        settings.isActive = false;
+    }
     const onCountClick = () => {
         dispatch(setCount(5))
     }
-    const a = 'abc'
     return (
         <div>
             <button onClick={()=>onCountClick()}>counter</button>
             
-            <Timer>
-            {(a) => <span>{a}</span>}
+            <Timer
+            id="timer-1"
+            settings={settings}
+            onComplete={onTimerCompleted}         
+            >
+                {(hours, minutes, seconds) => <span>{seconds} seconds</span>}
             </Timer>
             
         </div>
