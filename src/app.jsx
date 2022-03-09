@@ -5,9 +5,9 @@ import Timer from './timer'
 
 const App = () => {
     const dispatch = useDispatch()
-    const settings = {secondsPerClick: 6, isActive: true}
+    const settings = {secondsPerClick: 6}
     const onTimerCompleted = () => {
-        settings.isActive = false;
+        return <div>Time's up!</div>
     }
     const onCountClick = () => {
         dispatch(setCount(5))
