@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
 
-
 function Timer({id, settings, onComplete, children,time}) {
-  const [isActive, setIsActive] = useState(false);
   const [seconds, setSeconds] = useState(0);
+
   const calculateTimeLeft = (seconds) => {   
-    let timeLeft = {};
-      timeLeft = {
+    const timeLeft = {
         hours: Math.floor((seconds / (60 * 60)) % 24),
         minutes: Math.floor((seconds / 60) % 60),
         seconds: Math.floor((seconds) % 60),
       };
-    
     return timeLeft;
   };
+
   useEffect(() => {
-    
     let interval = null;
     if (seconds <= 0) {
       onComplete();
@@ -41,6 +38,5 @@ function Timer({id, settings, onComplete, children,time}) {
     </div>
   );
 }
-
 
 export default Timer
