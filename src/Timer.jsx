@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 
-function Timer({id, settings, onComplete, children}) {
-  const [seconds, setSeconds] = useState(100);
+function Timer({id, settings, onComplete, children,time}) {
   const [isActive, setIsActive] = useState(false);
+  const [seconds, setSeconds] = useState(0);
   const calculateTimeLeft = (seconds) => {   
     let timeLeft = {};
       timeLeft = {
@@ -14,33 +14,30 @@ function Timer({id, settings, onComplete, children}) {
     
     return timeLeft;
   };
-  const handleClick = () => {
-    setSeconds(seconds + settings.secondsPerClick);   
-  }
-  
- 
   useEffect(() => {
+    
     let interval = null;
-    if (isActive) {
-      interval = setInterval(() => {
+    if (seconds <= 0) {
+      onComplete();
+      return;
+    }
+      interval = setTimeout(() => {
         setSeconds(seconds - 1);
       }, 1000);
-    } else if ( seconds <= 0 ) {
-      onComplete()
-      clearInterval(interval);
-      setIsActive(false)
-    }
+    
     return () => clearInterval(interval);
-  }, [seconds, isActive]);
+  }, [seconds]);
+
+  useEffect(() => {
+    setSeconds(time)
+  }, [time]);
+  
   const timeLeft = calculateTimeLeft(seconds);
   
   return (
     <div id={id}>
       <h1>Timer</h1>
-      <button onClick={()=>handleClick()}>add {settings.secondsPerClick} seconds to timer</button>
-      <button onClick={()=>setIsActive(true)}>start</button>
-      <button onClick={()=>setIsActive(false)}>stop</button>
-       {isActive ? children(timeLeft.hours,timeLeft.minutes,timeLeft.seconds) : <span>{onComplete()}</span>} 
+      {seconds ? children(timeLeft.hours,timeLeft.minutes,timeLeft.seconds) : <span>Time's up!</span>} 
     </div>
   );
 }
